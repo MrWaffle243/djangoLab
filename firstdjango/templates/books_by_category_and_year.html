@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ category }} and {{ year }} Books 
+{% endblock %}
+
+{% block content %}
+    <h1> All "{{ category }}" Books from {{ year }}</h1>
+
+    <ul style="font-size: 20px; ">
+    {% for b in books %}
+        <li style="padding-bottom: 10px;"> 
+            <strong> {{ b.title }} </strong> 
+            by <em> {{ b.author }} </em>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
