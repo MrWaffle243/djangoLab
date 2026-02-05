@@ -10,3 +10,6 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     synopsis = models.TextField()
     category = models.CharField(max_length=50, default="General")
+
+    def __str__(self):
+        return self.title
