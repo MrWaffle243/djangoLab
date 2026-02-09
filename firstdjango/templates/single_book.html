@@ -4,6 +4,8 @@
 {% endblock %}
 
 {% block content %}
+    <br>
+    <a href="{% url 'all_books' %}"> &lt Back </a>
     <h1 style="margin-bottom: 0px;"> {{ book.title }} </h1>
     <h3 style="font-weight: normal; margin-top: 0px;"> <em> by {{ book.author }} </em> </h3>
 

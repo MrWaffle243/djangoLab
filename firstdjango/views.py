@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
@@ -31,11 +33,14 @@ def view_books_by_category_and_year(request, category, year):
     books_by_category_and_year = Book.objects.filter(category=category, year=year)
     return render(request, "books_by_category_and_year.html", {"books": books_by_category_and_year, "category":category, "year":year})
 
+@login_required
 def add_book(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
-            form.save()
+            book = form.save(commit=False)
+            book.added_by = request.user
+            book.save()
             return redirect("all_books")
     else:
         form = BookForm()
@@ -52,3 +57,20 @@ def add_author(request):
         form = AuthorForm()
 
     return render(request, "add_author.html", {"form": form})
+
+def register(request): 
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "registration/register.html", {"form": form})
+
+@login_required
+def profile(request):
+    user = request.user
+
+    return render(request, "profile.html", {"user": user})

@@ -10,10 +10,25 @@
     </title>
 </head>
 <body>
-    <nav>
+    <nav style="text-align: center;">
         <a href="/">Home</a>
-        <a href="/contact">Contact Us</a>
+        <p style="display: inline;"> | </p>
+        <!--<a href="/contact">Contact Us</a> -->
         <a href="/books">Books</a>
+        <p style="display: inline;"> | </p>
+
+        {% if user.is_authenticated %}
+        <span>Hello, <a href="{% url 'profile' %}"> {{ user.username }}</a>.</span>
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+            <p style="display: inline;"> or </p>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+
     </nav>
     {% block content %}
     {% endblock %}

@@ -13,8 +13,13 @@
     <ul style="font-size: 20px; ">
     {% for b in books %}
         <li style="padding-bottom: 10px;"> 
-            <strong> <a href="books/{{ b.id }}"> {{ b.title }}</a> </strong> 
+
+            <strong> <a href="books/{{ b.id }}"> {{ b.title }}</a></strong> 
+            (<em>{{ b.year }}</em>)
             by <em> {{ b.author }} </em>
+            {% if b.added_by %}
+                <small>(Added by {{ b.added_by.username }})</small>
+            {% endif %}
         </li>
     {% endfor %}
     </ul>

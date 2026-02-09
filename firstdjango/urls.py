@@ -12,5 +12,7 @@ urlpatterns = [
     path("books/category/<str:category>", view_books_by_category, name="books_by_category"),
     path("books/category/<str:category>/year/<int:year>", view_books_by_category_and_year, name="books_by_category_and_year"),
     path("authors/add/", views.add_author, name="add_author"),
+    path("register/", views.register, name="register"),
+    path("profile/", views.profile, name="profile"),
 ]
 
