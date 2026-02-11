@@ -11,6 +11,20 @@
 
     <p> <em> Released {{ book.year }} </em> </p>
     <p> {{ book.synopsis }} </p>
-    <p> €{{ book.price }} </p>
+    <br>
+    <p> Price: €{{ book.price }} </p>
     <p> Category: {{ book.category }} </p>
+    <br>
+
+    {% if book.added_by %}
+        <p><small>Added by {{ book.added_by.username }}</small></p>
+    {% endif %}
+
+    {% if book.added_by == user or user.is_staff %}
+        <div>
+            <a href="{% url 'edit_book' book.id %}">Edit</a>
+            <a href="{% url 'delete_book' book.id %}" style="color: red;">Delete</a>
+        </div>
+    {% endif %}
+
 {% endblock %}

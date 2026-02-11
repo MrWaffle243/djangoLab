@@ -20,11 +20,12 @@ class BookForm(ModelForm):
         return year
 
     def clean_title(self):
+        # Check if insert or update (new book or editing book)
+        isInsert = self.instance.pk == None
+
         title = self.cleaned_data["title"]
 
-        print(Book.objects)
-
-        if Book.objects.filter(title__iexact=title).exists():
+        if isInsert and Book.objects.filter(title__iexact=title).exists():
             raise ValidationError("A book of that title already exists")
 
         return title
